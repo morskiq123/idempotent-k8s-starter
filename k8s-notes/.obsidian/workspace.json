@@ -13,28 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Welcome.md",
+                "file": "Core concepts/Name spaces.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Welcome"
-            }
-          }
-        ]
-      },
-      {
-        "id": "a9309787b784b3f0",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "23ece25d33e49650",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "title": "Name spaces"
             }
           }
         ]
@@ -110,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Welcome.md",
+                "file": "Core concepts/kube-scheduler.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Welcome"
+              "title": "Backlinks for kube-scheduler"
             }
           },
           {
@@ -129,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Welcome.md",
+                "file": "Core concepts/kube-scheduler.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Welcome"
+              "title": "Outgoing links from kube-scheduler"
             }
           },
           {
@@ -172,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Welcome.md",
+                "file": "Core concepts/kube-scheduler.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Welcome"
+              "title": "Outline of kube-scheduler"
             }
           }
         ]
@@ -201,6 +185,20 @@
   },
   "active": "4d4f317d6141dd82",
   "lastOpenFiles": [
-    "Welcome.md"
+    "Core concepts/Services.md",
+    "Core concepts/Name spaces.md",
+    "Core concepts/ReplicaSets.md",
+    "useful commands.md",
+    "Core concepts/pods.md",
+    "Core concepts/Cluster architecture overview.md",
+    "Core concepts/Deployments.md",
+    "Scheduling",
+    "Core concepts/kube-proxy.md",
+    "Core concepts/kubelet.md",
+    "Core concepts/kube-scheduler.md",
+    "Core concepts/kube-controller-manager.md",
+    "Core concepts/kube-api server.md",
+    "Core concepts/etcd.md",
+    "Core concepts"
   ]
 }
