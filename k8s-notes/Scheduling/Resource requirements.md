@@ -97,3 +97,5 @@ spec:
 ```
 
 Requests here are guaranteed reservation. This means that all pods, together, cannot exceed more than 4 cpus used as guaranteed capacity, i.e., that namespace will guarantee that 4 cpus are available, but all pods together cannot have more than 4 cpus guaranteed. If one pod has a higher limit, say 10 cpus, it will be able to burst to 10 if it is available.
+
+<mark style="background: #FF5582A6;">You can use resource quotas to also limit max priority on pods in a namespace</mark>. This is useful, because a malicious user could create Pods at the highest possible [[Priority Classes]], causing other Pods to be evicted/not get scheduled.

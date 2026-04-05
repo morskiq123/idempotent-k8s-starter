@@ -22,7 +22,7 @@ k create <resource> <name> <additional-flags> --dry-run=client -o yaml > definit
 k apply -f definition.yml
 ```
 
-**See the logs of the resource**
+**See the current state of a resource**
 ```bash
 k describe <resource>/name
 k describe pods/nginx  
@@ -42,4 +42,14 @@ k scale --replicas=n replicaset replicaset-name
 **Get resources by matching their labels with a selector**
 ```bash
 k get <resource> --selector <label>:<value>
+```
+
+**View logs of a scheduler**
+```bash
+k logs -n=kube-system <scheduler-name>
+```
+
+**See all resources availabe**
+```bash
+k api-resources
 ```
