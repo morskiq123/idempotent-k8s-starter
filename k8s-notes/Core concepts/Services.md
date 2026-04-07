@@ -113,3 +113,69 @@ status:
  loadBalancer: {}
 ```
 
+---
+### [Headless Services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
+
+^908d58
+
+Unlike the clusterIP service,<mark style="background: #BBFABBA6;"> Headless Service = no load balancer</mark>,<mark style="background: #ADCCFFA6;"> just DNS that resolves directly to pod IPs, used for stateful apps with stable identities.</mark>
+
+```yaml
+...
+clusterIP: None #<------ Headless service
+...
+```
+
+<mark style="background: #FF5582A6;">For headless Services, a cluster IP is not allocated, kube-proxy does not handle these Services, and there is no load balancing or proxying done by the platform for them.</mark> This means that the pods that sit behind the headless service do not have a single unified point that you can connect to. **If you tried to connect to a headless service:**
+
+```bash
+psql -h db.default.svc.cluster.local -U user
+```
+
+- The client library (e.g., PostgreSQL, MySQL driver) will try **one of the returned pod IPs**
+- Which pod it connects to depends on **DNS resolution order** — this may be **random**
+- If your app expects **a specific pod as primary**, you may connect to the **wrong pod**
+
+A headless service is basically **DNS + Pod discovery**:
+
+- No ClusterIP → no VIP (virtual IP) → no kube-proxy load balancing
+- DNS resolves directly to **Pod IPs**
+- Allows **clients to talk to specific pods**
+
+ **Why it exists:**
+Stateful applications often need **stable identity**:
+
+- Databases: PostgreSQL, MySQL
+- Kafka brokers
+- Redis cluster
+
+Headless services are used in [[StatefulSet]]. When you run a DNS query, the return consists of all IPs behind that headless service.  
+
+**Example:**
+
+```
+db.default.svc.cluster.local 
+
+returns
+
+10.244.1.10 #db-0
+10.244.1.11 #db-1
+10.244.1.12 #db-2
+```
+
+In the StatefulSet you'll basically be having a few pods with stable names. If you want to reach a specific pod, then you can do the following:
+
+```
+db-0.db.default.svc.cluster.local  # → 10.244.1.10
+db-1.db.default.svc.cluster.local  # → 10.244.1.11
+```
+
+In a real world environment, you'd encounter this:
+
+```
+db-0.db.default.svc.cluster.local → primary
+db-1.db.default.svc.cluster.local → replica
+db-2.db.default.svc.cluster.local → replica
+```
+
+

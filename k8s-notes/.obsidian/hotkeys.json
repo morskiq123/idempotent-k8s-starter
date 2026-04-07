@@ -1,13 +1,4 @@
 {
-  "highlightr-plugin:Green": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "G"
-    }
-  ],
   "highlightr-plugin:Blue": [
     {
       "modifiers": [
@@ -24,6 +15,14 @@
         "Shift"
       ],
       "key": "R"
+    }
+  ],
+  "highlightr-plugin:Green": [
+    {
+      "modifiers": [
+        "Shift"
+      ],
+      "key": "F1"
     }
   ]
 }

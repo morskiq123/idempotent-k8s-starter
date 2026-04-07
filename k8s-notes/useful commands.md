@@ -53,3 +53,56 @@ k logs -n=kube-system <scheduler-name>
 ```bash
 k api-resources
 ```
+
+**Get live logs of a pod**
+```bash
+k logs  -f <pod>
+```
+
+**Check status of a rollout**
+```bash
+k rollout status deployment/<deployment-name>
+```
+
+**See rollout history**
+```bash
+k rollout history deployment/deployment-name>
+```
+
+**Undo a rollout**
+```bash
+k rollout undo deployment <deployment-name>
+k rollout undo deployment <deployment-name> --to-revision=2 
+```
+
+**Imperatively update a deployment**
+```bash
+k set image deployment/<deployment-name> <current-image>=<new-image>
+```
+
+**Pausing and resuming rollouts**
+```bash
+k rollout pause deployment <deployment-name>
+k rollout resume deployment <deployment-name>
+```
+
+**Checking a rollout's status**
+```bash
+k rollout status deployment <deployment-name>
+```
+
+**Imperatively creating a config map**
+```bash
+k create configmap <config-name> --from-literal=<key>=<value>
+```
+
+**Imperatively create a config map from a file**
+```bash
+k create configmap <config-name> --from-file=path/to/file
+```
+
+**Imperatively create a secret**
+
+```bash
+k create secret generic <secret> --from-literal=<key>=<value>
+```
