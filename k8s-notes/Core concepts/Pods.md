@@ -185,3 +185,81 @@ livenessProbe:
 
 # [Quality of service](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/)
 
+QoS defines <mark style="background: #FF5582A6;">how Kubernetes prioritizes Pods under node pressure (CPU / memory exhaustion)</mark>. It determines **which Pods get evicted first when the node is under stress**.\
+
+### <mark style="background: #BBFABBA6;">Guaranteed</mark>
+All containers have <mark style="background: #ADCCFFA6;">requests == limits (cpu + memory)</mark>
+**Properties**
+- Highest stability
+- Last to be evicted
+- Strict resource guarantees 
+
+**Tradeoffs**
+- No bursting capability
+- Can lead to over-provisioning
+
+**Use when**
+- Critical workloads
+- Latency-sensitive systems
+- Databases / core services
+
+### <mark style="background: #BBFABBA6;">Burstable</mark> 
+**(default in most systems)**
+requests set <mark style="background: #ADCCFFA6;">limits optional or higher than requests</mark>
+
+**Properties**
+- Can burst beyond requested CPU
+- Moderate eviction priority
+- Most common QoS class
+ 
+**Behavior under pressure**
+- May be evicted, <mark style="background: #FF5582A6;">but after BestEffort</mark>
+- Can experience instability under memory pressure
+
+**Use when**
+- General application workloads
+- APIs, services with variable load
+
+### <mark style="background: #BBFABBA6;">BestEffort</mark>
+no requests & no limits
+
+**Properties**
+- Lowest priority
+- First to be evicted under pressure
+- No guarantees whatsoever
+
+ **Behavior under pressure**
+- Immediately killed when node is stressed
+
+**Use when**
+- Temporary workloads
+- Non-critical batch jobs
+- Experimental workloads
+
+### <mark style="background: #FF5582A6;">Eviction Priority</mark> 
+When node is under memory pressure:
+`BestEffort → Burstable → Guaranteed`
+
+This is enforced by kubelet + kernel cgroups behavior.
+
+### <mark style="background: #ADCCFFA6;">How QoS is actually applied</mark>
+
+QoS is determined at **Pod creation time**, based on container specs.
+
+Kubernetes uses it for:
+
+- Eviction decisions
+- Node pressure handling
+- Scheduling stability decisions (indirectly)
+## Interaction with HPA / scaling systems
+
+QoS does NOT directly affect:
+
+- HPA scaling decisions
+- CPU/memory metrics
+
+But it affects:
+
+- Stability of scaled replicas
+- Which pods survive scaling pressure
+

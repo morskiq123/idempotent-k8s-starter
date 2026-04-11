@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Scheduling/Priority Classes.md",
+                "file": "Security/Authentication.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Priority Classes"
+              "title": "Authentication"
             }
           }
         ]
@@ -185,10 +185,21 @@
   },
   "active": "2a64bff8d0f72784",
   "lastOpenFiles": [
+    "Cluster maintance/Backup & restore methods.md",
+    "Security/Authentication.md",
+    "Security",
+    "Untitled.md",
+    "Cluster maintance/etcdctl & etcdutl.md",
+    "Cluster maintance/Drain, cordon & uncordon.md",
+    "Cluster maintance/Upgrading clusters.md",
+    "Cluster maintance/Upgrading nodes.md",
+    "Core concepts/Cluster architecture overview.md",
+    "Storage/PVC - persistent volume claim.md",
+    "Application lifecycle management/Autoscaling.md",
+    "Core concepts/Pods.md",
+    "Scheduling/Priority Classes.md",
     "Scheduling/Resource requirements.md",
     "Scheduling/Static Pods.md",
-    "Core concepts/Pods.md",
-    "Application lifecycle management/Autoscaling.md",
     "Application lifecycle management/Init containers and multi-container pods.md",
     "Application lifecycle management/Rolling updates and rollbacks.md",
     "Core concepts/StatefulSet.md",
@@ -196,26 +207,16 @@
     "Core concepts/kube-scheduler.md",
     "Core concepts/kubelet.md",
     "Core concepts/Deployments.md",
-    "Storage/PVC - persistent volume claim.md",
     "Storage/Untitled.md",
     "Storage",
-    "Scheduling/Priority Classes.md",
     "Core concepts/Services.md",
     "useful commands.md",
     "Scheduling/Multiple schedulers.md",
     "Scheduling/DaemonSets.md",
     "Application lifecycle management/ConfigMaps & secrets.md",
     "Application lifecycle management/Untitled",
-    "Application lifecycle management/Commands & Arguments.md",
-    "Scheduling/Admission controllers.md",
-    "LINK.md",
     "Application lifecycle management",
-    "Logging and monitoring/Monitoring cluster components.md",
     "Logging and monitoring",
-    "Scheduling/Node selectors.md",
-    "Scheduling/Node affinity.md",
-    "Scheduling/Labels and selectors.md",
-    "Core concepts/ReplicaSets.md",
     "Scheduling",
     "Core concepts"
   ]

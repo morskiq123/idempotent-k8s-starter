@@ -104,4 +104,71 @@ Result:
 ---
 # Vertical auto scaling
 
- 
+<mark style="background: #FF5582A6;">VPAs do not come standardly with kubernetes</mark>. If you want to use them, you need to add them to your cluster.  
+
+<mark style="background: #BBFABBA6;">VPA cannot change resources of a running container</mark>, so it must **evict and recreate pods** to apply new values.
+
+The VPA consists of a 
+- VPA admission controller --> creates the new pod that has the new recommendations for resources gathered from the recommender. Intervenes to edit the pod, since once a pod is killed, the deployment will create a new one. 
+- VPA updater --> evicts a pod that has been identified to not have sufficent resouces. 
+- VPA recommender --> continuiously monitors the metrics server
+
+<mark style="background: #FF5582A6;">There is no imperative command to create a vpa, because it does not come by default</mark>.
+
+```apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: kur-vpa
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: kur
+
+  updatePolicy:
+	updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+	  - containerName: "my-app"
+	    minAllowed:
+		  cpu: "250m"
+	    maxAllowed:
+		  cpu: "2"
+	    controlledResources: ["cpu"]
+```
+
+`updateMode` possibilites:
+	- `"Off"`: only recommends, does not change anything
+	- `"Initial"`: only changes a pod during **creation**, not later
+	- `"Recreate"`: Evicts pods if usage goes beyond range
+	- `"Auto"`: Updates existing pods to recommended numbers
+
+**Bad candidates:**
+
+- Highly spiky workloads
+- Latency-sensitive apps (due to restarts)
+- Apps that scale horizontally well
+
+**Good candidates:**
+
+- Stateful apps (databases)
+- JVM apps (memory tuning)
+- Batch jobs
+
+
+---
+
+## <mark style="background: #ADCCFFA6;">VPA + HPA interaction </mark>
+
+
+> <mark style="background: #FF5582A6;">VPA and HPA should not both control CPU/memory at the same time</mark>, because:
+> 
+> - HPA uses **resource utilization (based on requests)**
+> - VPA changes **requests**  
+>     → this creates a feedback loop
+
+### Safe patterns:
+
+- ✅ HPA on **external/custom metrics** + VPA for CPU/memory
+- ✅ VPA in `"Initial"` mode + HPA normally
+- ❌ HPA (CPU) + VPA (CPU) → unstable scaling
