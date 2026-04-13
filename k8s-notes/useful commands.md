@@ -1,6 +1,11 @@
 
 [k8s good practices](https://kubernetes.io/blog/2025/11/25/configuration-good-practices)
 
+**To get a list of possible parameters for a field of a resource**
+```bash
+k explain resource.field --recursive
+```
+
 **Get yaml config of the current state of the resource**
 ```bash
 k get <resource> <name> -o yaml 
