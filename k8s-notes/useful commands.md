@@ -107,7 +107,36 @@ k create configmap <config-name> --from-file=path/to/file
 ```
 
 **Imperatively create a secret**
-
 ```bash
 k create secret generic <secret> --from-literal=<key>=<value>
+```
+
+**Check available APIs**
+```bash
+curl --cacert ca.crt \  
+--cert client.crt \  
+--key client.key \
+https://<MASTER_IP>:6443
+
+curl https://<MASTER_IP>:6443 -k
+```
+
+**Get roles**
+```bash
+k get roles
+```
+
+**Get role bindings**
+```bash
+k get rolebindings
+```
+
+**Check access (dry-run)**
+```bash
+k auth can-i <verb> <action> [OPTIONAL] --as <user>
+```
+
+**Recreate RBAC roles, which fail due to immutable fields**
+```bash
+k auth reconcile
 ```

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Security/Certificates API.md",
+                "file": "Security/RBAC.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Certificates API"
+              "title": "RBAC"
             }
           }
         ]
@@ -185,16 +185,20 @@
   },
   "active": "2a64bff8d0f72784",
   "lastOpenFiles": [
-    "Security/Authentication.md",
-    "Security/Certificates API.md",
-    "Application lifecycle management/Autoscaling.md",
     "useful commands.md",
+    "Security/RBAC.md",
+    "Security/Certificates API.md",
+    "Security/Authorization.md",
+    "Security/Authentication.md",
+    "Security/API groups.md",
     "Application lifecycle management/ConfigMaps & secrets.md",
-    "Cluster maintance/Backup & restore methods.md",
-    "Security",
-    "Untitled.md",
     "Cluster maintance/etcdctl & etcdutl.md",
     "Cluster maintance/Drain, cordon & uncordon.md",
+    "Cluster maintance/Backup & restore methods.md",
+    "Security/KubeConfig.md",
+    "Application lifecycle management/Autoscaling.md",
+    "Security",
+    "Untitled.md",
     "Cluster maintance/Upgrading clusters.md",
     "Cluster maintance/Upgrading nodes.md",
     "Core concepts/Cluster architecture overview.md",
@@ -208,12 +212,7 @@
     "Core concepts/StatefulSet.md",
     "Cluster maintance",
     "Core concepts/kube-scheduler.md",
-    "Core concepts/kubelet.md",
-    "Core concepts/Deployments.md",
-    "Storage/Untitled.md",
     "Storage",
-    "Core concepts/Services.md",
-    "Scheduling/Multiple schedulers.md",
     "Application lifecycle management/Untitled",
     "Application lifecycle management",
     "Logging and monitoring",
