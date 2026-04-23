@@ -90,7 +90,7 @@ IN OUR CASE
 db-0.db.default.svc.cluster.local
 ```
 
-StatefulSets usually use with [[PVC - persistent volume claim|PVCs]] for <mark style="background: #BBFABBA6;">storage</mark>:
+StatefulSets usually use with [[Persistent volumes & claims|PVCs]] for <mark style="background: #BBFABBA6;">storage</mark>:
 ```yaml
 volumeClaimTemplates:
 - metadata:

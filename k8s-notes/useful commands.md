@@ -140,3 +140,8 @@ k auth can-i <verb> <action> [OPTIONAL] --as <user>
 ```bash
 k auth reconcile
 ```
+
+**Creating tokens for service accounts**
+```bash
+k create token <name> --duration 1h
+```
