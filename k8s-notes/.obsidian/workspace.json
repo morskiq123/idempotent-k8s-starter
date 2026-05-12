@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Storage/Storage classes.md",
+                "file": "Networking/Pod networking & CNI.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Storage classes"
+              "title": "Pod networking & CNI"
             }
           }
         ]
@@ -183,34 +183,36 @@
       "bases:Create new base": false
     }
   },
-  "active": "a003a1ba6c7b2b1b",
+  "active": "5face186ba5dce36",
   "lastOpenFiles": [
+    "Networking/Basics.md",
+    "Networking/Pod networking & CNI.md",
+    "Networking/Docker basics.md",
+    "Storage/Storage classes.md",
+    "Networking",
+    "Untitled.md",
+    "Storage/Projected volume.md",
+    "Storage/Volumes.md",
+    "Security/Service accounts.md",
+    "useful commands.md",
+    "Scheduling/DaemonSets.md",
+    "Scheduling/Node selectors.md",
     "Networking",
     "Storage/Persistent volumes & claims.md",
-    "Storage/Volumes.md",
     "storage class.md",
-    "Storage/Storage classes.md",
-    "Storage/Projected volume.md",
     "Application lifecycle management/ConfigMaps & secrets.md",
     "Security/Custom Resource Definition CRD.md",
-    "Untitled.md",
     "Security/Network policies.md",
     "Security/Certificates API.md",
     "Security/Authorization.md",
     "Security/Authentication.md",
     "Security/Accessing private registries.md",
     "Core concepts/Services.md",
-    "useful commands.md",
     "Core concepts/StatefulSet.md",
-    "Security/Service accounts.md",
     "Core concepts/Pods.md",
     "Security/RBAC.md",
     "Security/API groups.md",
     "Cluster maintance/etcdctl & etcdutl.md",
-    "Cluster maintance/Drain, cordon & uncordon.md",
-    "Cluster maintance/Backup & restore methods.md",
-    "Security/KubeConfig.md",
-    "Application lifecycle management/Autoscaling.md",
     "Security",
     "Cluster maintance",
     "Storage",
