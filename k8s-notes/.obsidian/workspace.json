@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Networking/Pod networking & CNI.md",
+                "file": "Networking/DNS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Pod networking & CNI"
+              "title": "DNS"
             }
           }
         ]
@@ -185,9 +185,13 @@
   },
   "active": "5face186ba5dce36",
   "lastOpenFiles": [
-    "Networking/Basics.md",
-    "Networking/Pod networking & CNI.md",
+    "Networking/Services deeper dive.md",
+    "Networking/DNS.md",
+    "Networking/CNI.md",
+    "Core concepts/Services.md",
     "Networking/Docker basics.md",
+    "Networking/Basics.md",
+    "Core concepts/kube-proxy.md",
     "Storage/Storage classes.md",
     "Networking",
     "Untitled.md",
@@ -207,12 +211,8 @@
     "Security/Authorization.md",
     "Security/Authentication.md",
     "Security/Accessing private registries.md",
-    "Core concepts/Services.md",
     "Core concepts/StatefulSet.md",
     "Core concepts/Pods.md",
-    "Security/RBAC.md",
-    "Security/API groups.md",
-    "Cluster maintance/etcdctl & etcdutl.md",
     "Security",
     "Cluster maintance",
     "Storage",

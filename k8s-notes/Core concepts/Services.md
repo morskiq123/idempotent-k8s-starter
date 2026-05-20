@@ -1,4 +1,4 @@
-At the base level, a Service is a <mark style="background: #ADCCFFA6;">stable network endpoint</mark> that provides access to a dynamic set of Pods.
+ At the base level, a Service is a <mark style="background: #ADCCFFA6;">stable network endpoint</mark> that provides access to a dynamic set of Pods.
 
 <mark style="background: #FF5582A6;">NodePort service</mark> -  exposes a Service on a **static port on every node's IP**, and forwards traffic to the Service, which then load-balances to the Pods.
 
