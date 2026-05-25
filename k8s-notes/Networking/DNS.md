@@ -1,4 +1,4 @@
-Uses coreDNS as a DNS server. It's deployed as a pod in the `kube-system` namespace. It uses a configuration file called `Corefile` that can be found at `/etc/coredns/Corefile`.
+Kubernetes uses coreDNS as a DNS server. It's deployed as a pod in the `kube-system` namespace. It uses a configuration file called `Corefile` that can be found at `/etc/coredns/Corefile`.
 
 It uses plugins to handle behaviour.
 
