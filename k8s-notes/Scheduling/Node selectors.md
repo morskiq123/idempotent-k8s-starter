@@ -1,4 +1,4 @@
-Just like labels in selectors for services and deployments / replicasets, you can also have selectors, but for nodes.
+coJust like labels in selectors for services and deployments / replicasets, you can also have selectors, but for nodes.
 
 **To label nodes:**
 ```bash
