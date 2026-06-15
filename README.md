@@ -7,7 +7,9 @@ TODO:
 - [x] set up traefik 
 - [x] put Traefik and Longhorn's dashboards behind Traefik with ingress routes
 - [x] make the dashboards accessible via DNS with a wildcard
-- [ ] set up private registry
+- [ ] add pihole dns conf to ansible playbook to enable idempotency
+- [ ] add proxmox interface creation to ansible playbook to enable idempotency
+- [x] set up private registry
 - [ ] set up monitoring ( loki, prometheus, grafana )
 - [ ] investigate removing metal lb and using cilium as a load balancer
 - [ ] install argocd
@@ -15,7 +17,9 @@ TODO:
 - [ ] investigate setting up multiple control-plane nodes
 - [ ] investigate service mesh (istio)
 - [ ] investigate turning the k8s cluster into a redeployable helm chart
-
+- [ ] integrate goldilocks
+- [ ] integrate kubeseal
+- [ ] set up TLS
 --- 
 # How this works:
 
@@ -44,8 +48,6 @@ They all have 3GB of ram allocated to them and a 20gb block assigned to them.
 
 The proxmox has a static IP assigned to it. Pi-hole uses the router's DHCP and has a mac/ip binded address. 
 All of the VMs inside Proxmox go through pi-hole's DHCP on a separate subnet. To make this possible, I created a second network interface on the node itself, which allows for any resources created on that node to inherit the interface. 
-
-
 
 ```
 auto lo

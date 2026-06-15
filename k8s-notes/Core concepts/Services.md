@@ -85,13 +85,10 @@ You associate pods with cluster IPs. A lot of pods can sit behind one single end
 apiVersion: v1  
 kind: Service  
 metadata:  
- creationTimestamp: "2026-04-02T17:17:52Z"  
  labels:  
    app: kur-cluster  
  name: kur-cluster  
  namespace: default  
- resourceVersion: "5097322"  
- uid: 1236090e-bfa8-465a-89d3-8f5f97a54da7  
 spec:  
  clusterIP: 10.105.193.202  
  clusterIPs:  
@@ -109,8 +106,6 @@ spec:
    app: kur-cluster  
  sessionAffinity: None  
  type: ClusterIP  
-status:  
- loadBalancer: {}
 ```
 
 ---

@@ -1,0 +1,99 @@
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: registry-configmap 
+data:
+  OTEL_TRACES_EXPORTER: none
+  REGISTRY_HTTP_ADDR: 0.0.0.0:5000
+  REGISTRY_AUTH: htpasswd
+  REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+  REGISTRY_AUTH_HTPASSWD_REALM: 'Registry Realm'
+  #REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt 
+  #REGISTRY_HTTP_TLS_KEY: /certs/domain.key 
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: registry
+  name: registry
+  namespace: shared-services
+spec:
+  containers:
+  - image: registry:3
+    name: registry-secret-volume 
+    ports:
+      - containerPort: 5000
+
+    envFrom:
+      - configMapRef:
+          name: registry-configmap
+    
+    volumeMounts:
+    - name: registry-secret-volume
+      mountPath: /auth/htpasswd
+      readOnly: true
+    
+    - name: registry-image-storage
+      mountPath: /var/lib/images 
+      readOnly: false
+
+  volumes:
+  - name: registry-secret-volume
+    secret:
+      secretName: registry-secret
+    
+  - name: registry-image-storage
+    persistentVolumeClaim: 
+      claimName: registry-storage
+
+  nodeSelector:
+    type: shared-services
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: registry-storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-secret
+  namespace: shared-services
+type: Opaque
+stringData:
+  htpasswd: |
+    admin:$2y$05$PsSJYr3lFNa476NZ1Y1.femEyqfFbSlKnne86YZQGiobTqXvPtsAm
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: registry
+  name: registry
+spec:
+  ports:
+  - name: 5000-5000
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: registry
+  type: ClusterIP
