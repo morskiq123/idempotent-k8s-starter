@@ -1,9 +1,13 @@
 TODO:
 
-- [x] see if vm's ip can be added to dns (keep dynamic ips but have a static fqdn)
+- [x] use pihole as a dhcp for proxmox
+- [x] use pihole as a local dns
 - [x] add  fqdns to ansible for inventory
-- [ ] see how to use nfs server as storage class
-- [ ] set up registry
-	Dumb idea to keep dynamic IPs, rather I just exported my Proxmox networking over to PiHole and I use PiHole's DHCP to manage my internal Proxmox networking. I setup PiHole as the DNS on the router and assigned permanent DHCP leases to some of the VMs in PiHole. Those that got a permanent IP also got a Local DNS entry  
- - [x] set up nfs on nfs server
-	Set up Longhorn
+- [x] set up longhorn 
+- [x] set up traefik 
+- [x] put Traefik and Longhorn's dashboards behind Traefik with ingress routes
+- [x] make the dashboards accessible via DNS with a wildcard
+- [ ] set up private registry
+- [ ] install argocd
+- [ ] investigate need for gittea 
+
