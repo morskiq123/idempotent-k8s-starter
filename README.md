@@ -41,7 +41,7 @@ All of the VMs inside Proxmox go through pi-hole's DHCP on a separate subnet. To
 ```
 ```
 
-`
+```
 auto lo
 iface lo inet loopback
 
@@ -64,10 +64,8 @@ iface vmbr1 inet static
     bridge_fd 0
 
 source /etc/network/interfaces.d/*
-`
-
-
 ```
+
 ```
 All of the nodes have a mac/ip binding inside pi-hole.
 Pi-hole provides a local DNS solution. The proxmox node and the 
