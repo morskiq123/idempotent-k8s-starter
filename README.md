@@ -8,8 +8,14 @@ TODO:
 - [x] put Traefik and Longhorn's dashboards behind Traefik with ingress routes
 - [x] make the dashboards accessible via DNS with a wildcard
 - [ ] set up private registry
+- [ ] set up monitoring ( loki, prometheus, grafana )
+- [ ] investigate removing metal lb and using cilium as a load balancer
 - [ ] install argocd
 - [ ] investigate need for gittea 
+- [ ] investigate setting up multiple control-plane nodes
+- [ ] investigate service mesh (istio)
+- [ ] investigate turning the k8s cluster into a redeployable helm chart
+
 --- 
 # How this works:
 
@@ -38,8 +44,8 @@ They all have 3GB of ram allocated to them and a 20gb block assigned to them.
 
 The proxmox has a static IP assigned to it. Pi-hole uses the router's DHCP and has a mac/ip binded address. 
 All of the VMs inside Proxmox go through pi-hole's DHCP on a separate subnet. To make this possible, I created a second network interface on the node itself, which allows for any resources created on that node to inherit the interface. 
-```
-```
+
+
 
 ```
 auto lo
@@ -66,6 +72,7 @@ iface vmbr1 inet static
 source /etc/network/interfaces.d/*
 ```
 
-```
+
 All of the nodes have a mac/ip binding inside pi-hole.
-Pi-hole provides a local DNS solution. The proxmox node and the 
+Pi-hole provides a local DNS solution. The proxmox node, pi-hole and the master node all have local dns entries ( A records )
+Pi-hole, through using `misc.etc_dnsmasq_d`, allows for wildcard addresses. This is not possible via the UI of pihole [https://www.reddit.com/r/selfhosted/comments/1eenxzp/wildcard_dns_record_in_pihole/]
