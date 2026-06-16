@@ -1,6 +1,0 @@
-1.) how does calico work
-2.) how to switch a pod's namespace
-3.) runc
-4.) cgroups
-5.) kernel namespaces
-6.) https://kubernetes.io/docs/reference/
