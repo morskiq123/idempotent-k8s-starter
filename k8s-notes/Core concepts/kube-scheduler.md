@@ -1,5 +1,0 @@
-cThe scheduler decides which pod goes on which node based on <mark style="background: #BBFABBA6;">certain criteria</mark>. For example, if a pod requires 10 cpus, and you have a node with 2 cpus and one with 16, it will not go on the node with 2 cpus. <mark style="background: #FF5582A6;">This is the first  step of the process that the scheduler runs</mark> - **it filters**
-
-Then, the scheduler ranks the nodes how much <mark style="background: #BBFABBA6;">resources will be free after the pod is assigned</mark>. If there are two nodes filtered, one having 16 cpus available, and the other one having 24, the one with the 24 will have the pod assigned to it, leaving it with 14 cpus availabe. 
-
-This is a high level overview of the scheduler. It is ignoring concepts such as taints, node affinities and etc. You can also write your own scheduler logic. 

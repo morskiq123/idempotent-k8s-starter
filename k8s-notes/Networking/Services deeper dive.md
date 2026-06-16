@@ -1,4 +1,0 @@
-Services are cluster wide virtual objects that are commisioned by the service controller. Kube- proxies are responsible for creating services <mark style="background: #FF5582A6;">by programming Linux networking rules</mark>.  The way that it works is that when a client tries to hit a service, behind that service there's a pod. The packet goes towards the node where the pod is hosted (thanks to the DNS server), and then the packet enters <mark style="background: #ADCCFFA6;">the Linux networking stack</mark>, meaning that it first goes through netfiltr, then iptables, and then it gets forwarded to the pod <mark style="background: #FF5582A6;">via the cluster's networking layer (CNI)</mark>. The same route is followed in reverse, possibly obscuring the pod's real IP (since it is in it's own networking namespace). 
-
-You can set up the proxy mode of the kube proxy. It can use `ipvs`, `iptables` or `userspace`. By defualt it uses `iptables`.
-
