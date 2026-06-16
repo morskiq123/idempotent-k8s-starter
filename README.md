@@ -1,26 +1,53 @@
-TODO:
+# What is this?
 
+A fully idempotent kubernetes environment that can be deployed on Proxmox that provides GitOps a private container registry, has monitoring and most likely A CI/CD component.  
+
+### A more detailed explanation:
+
+This is my personal repo that I started to keep my notes for when I was learning kubernetes. Since that I've started developing a small kubernetes environment on my home lab in order to expose myself to the technology. I've decided to make this repository public as it might be useful. My final plan for this repository is for it to hold a fully idempotent environment. To achieve this, I plan to use the following:
+- Terraform for IaC
+- Ansible for configuration management
+- Helm to package the environment for kubernetes
+
+--- 
+
+## TODO:
+
+NOTE: The tasks are not listed in a consecutive order. I add update tasks as the project continues and new ideas come to mind. 
+
+#### Prep work:
 - [x] use pihole as a dhcp for proxmox
 - [x] use pihole as a local dns
-- [x] add  fqdns to ansible for inventory
+- [ ] add  fqdns to ansible for inventory
+
+
+#### Building out the cluster:
 - [x] set up longhorn 
-- [x] set up traefik 
+- [x] set up traefik
 - [x] put Traefik and Longhorn's dashboards behind Traefik with ingress routes
 - [x] make the dashboards accessible via DNS with a wildcard
-- [ ] add pihole dns conf to ansible playbook to enable idempotency
-- [ ] add proxmox interface creation to ansible playbook to enable idempotency
 - [x] set up private registry
+- [ ] set up TLS
 - [ ] set up monitoring ( loki, prometheus, grafana )
-- [ ] investigate removing metal lb and using cilium as a load balancer
 - [ ] install argocd
+- [ ] integrate goldilocks
+- [ ] integrate kubeseal
+
+#### Idempotency:
+- [ ] add pihole dns conf to ansible playbook
+- [ ] add proxmox interface creation to ansible playbook
+- [ ] import existing templates into terraform
+
+
+
+#### Things to look into:
+- [ ] investigate removing metal lb and using cilium as a load balancer
 - [ ] investigate need for gittea 
 - [ ] investigate setting up multiple control-plane nodes
 - [ ] investigate service mesh (istio)
 - [ ] investigate turning the k8s cluster into a redeployable helm chart
-- [ ] integrate goldilocks
-- [ ] integrate kubeseal
-- [ ] set up TLS
 --- 
+
 # How this works:
 
 My setup: 
