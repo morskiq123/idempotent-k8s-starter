@@ -28,6 +28,7 @@ NOTE: The tasks are not listed in a consecutive order. I add update tasks as the
 - [x] make the dashboards accessible via DNS with a wildcard
 - [x] set up private registry
 - [ ] set up TLS
+- [ ] set up mTLS
 - [ ] set up monitoring ( loki, prometheus, grafana )
 - [ ] install argocd
 - [ ] integrate goldilocks
