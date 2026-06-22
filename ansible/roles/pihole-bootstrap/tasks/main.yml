@@ -1,0 +1,109 @@
+---
+
+- name: Assert required variables are set for static networking
+  ansible.builtin.assert:
+    that:
+      - var_ip | length > 0
+      - var_gateway | length > 0
+    fail_msg: >-
+      var_net is "static" but var_ip and/or var_gateway were not provided.
+      Pass them with: -e "var_ip=192.168.1.100/24 var_gateway=192.168.1.1"
+  when: var_net == "static"
+
+- name: Assert a password or SSH key was provided
+  ansible.builtin.assert:
+    that:
+      - (var_pw | length > 0) or (var_ssh_pubkey | length > 0)
+    fail_msg: >-
+      Provide var_pw (container password) and/or var_ssh_pubkey,
+      e.g. -e "var_pw=password"
+
+- name: Build network interface string
+  ansible.builtin.set_fact:
+    var_netif_string: >-
+      {{
+        'name=eth0,bridge=' ~ var_bridge ~
+        (',ip=' ~ var_ip if var_net == 'static' else ',ip=dhcp') ~
+        (',gw=' ~ var_gateway if var_net == 'static' and var_gateway | length > 0 else '')
+      }}
+
+- name: Create Pi-hole LXC container
+  community.proxmox.proxmox:
+    api_host: "{{ proxmox_api_host }}"
+    api_user: "{{ proxmox_api_user }}"
+    api_password: "{{ proxmox_api_password | default(omit) }}"
+    api_token_id: "{{ proxmox_api_token_id | default(omit) }}"
+    api_token_secret: "{{ proxmox_api_token_secret | default(omit) }}"
+    node: "{{ proxmox_node }}"
+    vmid: "{{ var_ctid }}"
+    hostname: "{{ var_hostname }}"
+    ostemplate: "{{ var_template_storage }}:vztmpl/{{ var_ostemplate }}"
+    storage: "{{ var_container_storage }}"
+    disk: "{{ var_container_storage }}:{{ var_disk_gb }}"
+    cores: "{{ var_cpu }}"
+    memory: "{{ var_ram }}"
+    swap: "{{ var_ram }}"
+    unprivileged: "{{ var_unprivileged }}"
+    password: "{{ var_pw | default(omit) }}"
+    pubkey: "{{ var_ssh_pubkey | default(omit) }}"
+    netif:
+      net0: "{{ var_netif_string }}"
+    features:
+      - "nesting=1"
+    tags: "{{ var_tags | join(',') }}"
+    onboot: true
+    state: present
+  register: pihole_ct_create
+
+- name: Start the container
+  community.proxmox.proxmox:
+    api_host: "{{ proxmox_api_host }}"
+    api_user: "{{ proxmox_api_user }}"
+    api_password: "{{ proxmox_api_password | default(omit) }}"
+    api_token_id: "{{ proxmox_api_token_id | default(omit) }}"
+    api_token_secret: "{{ proxmox_api_token_secret | default(omit) }}"
+    node: "{{ proxmox_node }}"
+    vmid: "{{ var_ctid }}"
+    state: started
+  when: var_start_on_create | bool
+
+- name: Wait for container to respond to ping (DHCP/network up)
+  ansible.builtin.wait_for:
+    timeout: 30
+  delegate_to: localhost
+  when: var_start_on_create | bool
+
+- name: Enable SSH access inside the container, if requested
+  ansible.builtin.command:
+    cmd: >-
+      pct exec {{ var_ctid }} -- bash -c
+      "systemctl enable --now ssh"
+  delegate_to: "{{ proxmox_node }}"
+  when: var_ssh | bool
+  changed_when: true
+
+- name: Install Pi-hole inside the container
+  ansible.builtin.command:
+    cmd: >-
+      pct exec {{ var_ctid }} -- bash -c
+      "curl -fsSL https://install.pi-hole.net | bash /dev/stdin --unattended"
+  delegate_to: "{{ proxmox_node }}"
+  changed_when: true
+  register: pihole_install_result
+
+- name: Set the Pi-hole admin password
+  ansible.builtin.command:
+    cmd: >-
+      pct exec {{ var_ctid }} -- bash -c
+      "pihole setpassword '{{ var_pihole_password }}'"
+  delegate_to: "{{ proxmox_node }}"
+  when: var_pihole_password | length > 0
+  no_log: true
+  changed_when: true
+
+- name: Report container summary
+  ansible.builtin.debug:
+    msg:
+      - "Pi-hole container {{ var_ctid }} ({{ var_hostname }}) created on {{ proxmox_node }}"
+      - "Network: {{ var_netif_string }}"
+      - "Storage: {{ var_container_storage }} / template: {{ var_template_storage }}"

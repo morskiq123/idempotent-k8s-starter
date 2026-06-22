@@ -1,0 +1,7 @@
+galaxy_info:
+  role_name: pihole_lxc
+  description: Provision a Pi-hole LXC container on Proxmox VE with overridable var_* settings
+  min_ansible_version: "2.15"
+ 
+collections:
+  - community.proxmox

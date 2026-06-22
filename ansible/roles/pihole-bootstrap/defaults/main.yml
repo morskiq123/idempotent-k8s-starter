@@ -1,0 +1,62 @@
+---
+# roles/pihole_lxc/defaults/main.yml
+#
+# These are the LOWEST-priority variables — the "built-in defaults" layer.
+# Override any of them with -e "var_x=y", in group_vars/host_vars, or via
+# a preset file (e.g. vars/apps/pihole.yml) loaded with -e "@vars/apps/pihole.yml".
+#
+# Names intentionally mirror the community-scripts ProxmoxVE convention
+# (var_ctid, var_net, var_gateway, var_ssh, var_pw, ...) so the override
+# story stays familiar to anyone who's used those install scripts.
+
+# --- Identity ---
+var_ctid: 100
+var_hostname: "pihole-{{ var_ctid }}"
+
+# --- Resources ---
+var_cpu: 1
+var_ram: 512
+var_disk_gb: 2
+var_unprivileged: true
+var_tags:
+  - adblock
+  - pihole
+
+# --- Networking ---
+# var_net: "dhcp" or "static"
+var_net: "static"
+var_bridge: "vmbr0"
+# Required when var_net == "static". Use CIDR notation, e.g. 192.168.1.100/24
+var_ip: "192.168.10.10/32"
+var_gateway: "192.168.10.1"
+
+# --- Access ---
+var_ssh: true
+# var_pw is required by the proxmox module to set the root/container password.
+# Pass this with -e at the command line, not committed to a vars file.
+var_pw: ""
+var_ssh_pubkey: ""
+
+# --- Storage ---
+var_container_storage: "local-lvm"
+var_template_storage: "local"
+var_ostemplate: "debian-12-standard_12.7-1_amd64.tar.zst"
+
+# --- Pi-hole specific ---
+var_pihole_password: "{{ var_pw }}"
+var_pihole_dns_upstream:
+  - "1.1.1.1"
+  - "1.0.0.1"
+
+# --- Proxmox API connection ---
+proxmox_api_host: "{{ proxmox_node }}"
+proxmox_api_user: "root@pam"
+proxmox_node: "pve"
+
+# --- Behavior ---
+# mode: "generated" skips any interactive prompts/asserts that aren't
+# strictly required; mirrors the helper-scripts "mode=generated" flag.
+mode: "generated"
+
+# Start the container automatically after creation
+var_start_on_create: true

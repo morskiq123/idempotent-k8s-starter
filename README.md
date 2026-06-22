@@ -18,8 +18,7 @@ NOTE: The tasks are not listed in a consecutive order. I add update tasks as the
 #### Prep work:
 - [x] use pihole as a dhcp for proxmox
 - [x] use pihole as a local dns
-- [ ] add  fqdns to ansible for inventory
-
+- [x] add  fqdns to ansible for inventory
 
 #### Building out the cluster:
 - [x] set up longhorn 
@@ -35,6 +34,7 @@ NOTE: The tasks are not listed in a consecutive order. I add update tasks as the
 - [ ] integrate kubeseal
 
 #### Idempotency:
+- [x] add pihole bootstrapping pihole lxc container with ansible
 - [ ] add pihole dns conf to ansible playbook
 - [ ] add proxmox interface creation to ansible playbook
 - [ ] import existing templates into terraform
@@ -106,3 +106,8 @@ source /etc/network/interfaces.d/*
 All of the nodes have a mac/ip binding inside pi-hole.
 Pi-hole provides a local DNS solution. The proxmox node, pi-hole and the master node all have local dns entries ( A records )
 Pi-hole, through using `misc.etc_dnsmasq_d`, allows for wildcard addresses. This is not possible via the UI of pihole [https://www.reddit.com/r/selfhosted/comments/1eenxzp/wildcard_dns_record_in_pihole/]
+
+## Ansible
+This is a list of the variables that are used along with their default values. You can override the default values by editing the override.yml file in the root ansible directory.
+
+  

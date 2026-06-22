@@ -1,0 +1,8 @@
+---
+
+- name: Provision a Pi-hole LXC container
+  hosts: proxmox
+  gather_facts: false
+  roles:
+    - pihole-bootstrap
+
